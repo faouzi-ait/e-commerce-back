@@ -5,7 +5,9 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const LocalStrategy = require("passport-local");
 const config = require("../configuration/config");
 
-// LOCAL LOGIN STATEGY
+// TODO: SOCIAL LOGIN STATEGY
+
+// LOCAL LOGIN (USERNAME & PASSWORD) STATEGY
 const localLogin = new LocalStrategy(
   { usernameField: "email" },
   (email, password, done) => {
@@ -14,7 +16,6 @@ const localLogin = new LocalStrategy(
       if (!user) return done(null, false);
 
       user.comparePassword(password, function (err, isMatch) {
-        console.log(password);
         if (err) return done(err);
         if (!isMatch) return done(null, false);
 
@@ -24,8 +25,7 @@ const localLogin = new LocalStrategy(
   }
 );
 
-// TODO: SOCIAL LOGIN STRATEGY...
-
+// JWT BASED AUTHENTICATION PROCESS
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader("authorization"),
   secretOrKey: config.params.TOKEN_SECRET,

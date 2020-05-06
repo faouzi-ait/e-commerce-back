@@ -4,11 +4,14 @@ const passport = require("passport");
 
 const UserController = require("../controller/UserController");
 
-const UserAuthentication = passport.authenticate("local", { session: false });
-const PrivateRoutes = passport.authenticate("jwt", { session: false });
+const ProtectedRoute = passport.authenticate("jwt", { session: false });
 const AdminOnlyRoutes = require("../services/AccessControlService");
 
 router.post("/auth", UserController.createUser);
-router.post("/login", UserAuthentication, UserController.signInUser);
+router.post(
+  "/login",
+  passport.authenticate("local", { session: false }),
+  UserController.signInUser
+);
 
 module.exports = router;

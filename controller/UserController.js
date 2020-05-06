@@ -43,13 +43,7 @@ exports.createUser = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      user: {
-        id: newUser._id,
-        firstname,
-        lastname,
-        email,
-        token,
-      },
+      message: "Your account was successfully created",
     });
   } catch (err) {
     res.status(400).json({
@@ -68,7 +62,7 @@ exports.signInUser = async (req, res, next) => {
 
   return res.status(200).json({
     success: true,
-    User: {
+    user: {
       email,
       token: generateToken(user),
     },
