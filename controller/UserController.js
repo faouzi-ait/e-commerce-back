@@ -39,7 +39,6 @@ exports.createUser = async (req, res, next) => {
 
   try {
     const newUser = await user.save();
-    const token = generateToken(newUser);
 
     res.status(201).json({
       success: true,

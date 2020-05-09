@@ -20,6 +20,7 @@ app.use(cors());
 app.use(morgan("combined"));
 
 app.use("/api/v1", require("./routes/UserRoutes"));
+app.use("/api/v1", require("./routes/MailRoute"));
 
 mongoose.connect(config.params.db_url(), config.params.db_params, (_) =>
   console.log("connected...")
