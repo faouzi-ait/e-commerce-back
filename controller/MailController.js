@@ -9,14 +9,9 @@ exports.sendEmail = async (req, res) => {
     to: "faouzi.aitelhara@gmail.com, joebarne15@gmail.com",
     subject: "My site contact from: " + name,
     text: message,
-    html:
-      "Message from: " +
-      name +
-      lastname +
-      "<br></br> Email: " +
-      email +
-      "<br></br> Message: " +
-      message,
+    html: `Message from: ${name} ${lastname}
+    <br></br> Email: ${email}
+    <br></br> Message: ${message}`,
   };
 
   let transporter = nodemailer.createTransport({
