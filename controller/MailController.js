@@ -37,14 +37,14 @@ exports.sendEmail = async (req, res) => {
 };
 
 exports.sendConfirmationMail = async (req, res) => {
-  const { clientMail, user, order, total } = req.body;
+  const { clientMail, order, total } = req.body;
 
   let mailOptions = {
     from: "no-reply@e-commerce.com",
     to: clientMail,
     subject: "Your Purchase Confirmation",
     html: `<h2>Order Confirmation</h2>
-    <p>Thank you ${user.name} ${user.lastname} for your purchase.<br />
+    <p>Thank you ${clientMail} for your purchase.<br />
     The amount of: $${total} will be charged on your card.</p>
     <br />
     <br />
