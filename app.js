@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const config = require("./configuration/config");
 
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -16,7 +17,6 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
 app.use(morgan("combined"));
 
 app.use("/api/v1", require("./routes/UserRoutes"));

@@ -13,5 +13,6 @@ router.post(
   passport.authenticate("local", { session: false }),
   UserController.signInUser
 );
+router.post("/order/userHistory/:id", ProtectedRoute, UserController.updateUserPurchaseHistory);
 
 module.exports = router;
