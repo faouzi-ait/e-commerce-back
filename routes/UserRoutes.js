@@ -15,5 +15,6 @@ router.post(
 );
 router.post("/order/userHistory/:id", ProtectedRoute, UserController.updateUserPurchaseHistory);
 router.post("/user/updateAvatar/:id", ProtectedRoute, UserController.updateUserAvatar);
+router.get("/user/getprofile/:id", ProtectedRoute, UserController.getUserProfile);
 
 module.exports = router;

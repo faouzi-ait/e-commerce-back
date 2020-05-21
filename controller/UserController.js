@@ -69,6 +69,29 @@ exports.signInUser = async (req, res, next) => {
   });
 };
 
+exports.getUserProfile = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.params.id });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        error: "The specified user id was not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
 exports.updateUserPurchaseHistory = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.params.id });
@@ -115,7 +138,7 @@ exports.updateUserAvatar = async (req, res, next) => {
 
     user.save((err) => {
       if (err) {
-        console.error("Error while saving the history");
+        console.error("Error while saving the avatar");
       }
     });
 
