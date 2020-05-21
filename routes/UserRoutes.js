@@ -14,5 +14,6 @@ router.post(
   UserController.signInUser
 );
 router.post("/order/userHistory/:id", ProtectedRoute, UserController.updateUserPurchaseHistory);
+router.post("/user/updateAvatar/:id", ProtectedRoute, UserController.updateUserAvatar);
 
 module.exports = router;

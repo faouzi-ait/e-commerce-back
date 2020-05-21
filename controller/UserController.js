@@ -33,6 +33,7 @@ exports.createUser = async (req, res, next) => {
   const user = new User({
     firstname,
     lastname,
+    avatar: "",
     email,
     password,
   });
@@ -90,6 +91,37 @@ exports.updateUserPurchaseHistory = async (req, res, next) => {
     res.status(200).json({
       success: true,
       history: user.history,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err,
+    });
+  }
+};
+
+exports.updateUserAvatar = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.params.id });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        error: "The specified user id was not found",
+      });
+    }
+
+    user.avatar = req.body.avatarLink;
+
+    user.save((err) => {
+      if (err) {
+        console.error("Error while saving the history");
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      avatar: user.avatar,
     });
   } catch (err) {
     res.status(400).json({
