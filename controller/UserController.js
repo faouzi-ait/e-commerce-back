@@ -142,6 +142,8 @@ exports.updateUserAvatar = async (req, res, next) => {
       }
     });
 
+    
+
     res.status(200).json({
       success: true,
       avatar: user.avatar,

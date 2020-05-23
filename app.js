@@ -22,6 +22,7 @@ app.use(morgan("combined"));
 app.use("/api/v1", require("./routes/UserRoutes"));
 app.use("/api/v1", require("./routes/ProductRoutes"));
 app.use("/api/v1", require("./routes/MailRoute"));
+app.use("/api/v1", require("./routes/StripePaymentRoute"));
 
 mongoose.connect(config.params.db_url(), config.params.db_params, (_) =>
   console.log("connected...")
