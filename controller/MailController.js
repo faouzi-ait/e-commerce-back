@@ -1,13 +1,13 @@
-const oauth = require("../configuration/oauth");
-const nodemailer = require("nodemailer");
+const oauth = require('../configuration/oauth');
+const nodemailer = require('nodemailer');
 
 exports.sendEmail = async (req, res) => {
   const { name, lastname, email, message } = req.body;
 
   let mailOptions = {
     from: name,
-    to: "faouzi.aitelhara@gmail.com, joebarne15@gmail.com",
-    subject: "My site contact from: " + name,
+    to: 'faouzi.aitelhara@gmail.com, joebarne15@gmail.com',
+    subject: 'My site contact from: ' + name,
     text: message,
     html: `Message from: ${name} ${lastname}
     <br></br> Email: ${email}
@@ -15,34 +15,31 @@ exports.sendEmail = async (req, res) => {
   };
 
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: oauth,
   });
 
-  try {
-    transporter.sendMail(mailOptions, (err, res) => {
-      err ? console.log(err) : console.log(res);
-    });
-
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.status(400).json({
+        status: 'fail',
+        message: 'Your message could not be sent, please try again later',
+      });
+    }
     res.status(200).json({
-      status: "success",
-      message: "Your message was successfully sent, thank you!",
+      status: 'success',
+      message: 'Your message was successfully sent, thank you!',
     });
-  } catch {
-    res.status(400).json({
-      status: "fail",
-      message: "Your message could not be sent, please try again later",
-    });
-  }
+  });
 };
 
 exports.sendConfirmationMail = async (req, res) => {
   const { clientMail, order, total } = req.body;
 
   let mailOptions = {
-    from: "no-reply@e-commerce.com",
+    from: 'no-reply@e-commerce.com',
     to: clientMail,
-    subject: "Your Purchase Confirmation",
+    subject: 'Your Purchase Confirmation',
     html: `<h2>Order Confirmation</h2>
     <p>Thank you ${clientMail} for your purchase.<br />
     The amount of: $${total} will be charged on your card.</p>
@@ -65,7 +62,7 @@ exports.sendConfirmationMail = async (req, res) => {
 
   try {
     let transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: oauth,
     });
 
@@ -74,13 +71,13 @@ exports.sendConfirmationMail = async (req, res) => {
     });
 
     res.status(200).json({
-      status: "success",
-      message: "Your confirmation mail was successfully sent, thank you!",
+      status: 'success',
+      message: 'Your confirmation mail was successfully sent, thank you!',
     });
   } catch {
     res.status(400).json({
-      status: "fail",
-      message: "Your message could not be sent, please try again later",
+      status: 'fail',
+      message: 'Your message could not be sent, please try again later',
     });
   }
 };
