@@ -7,7 +7,7 @@ exports.sendEmail = async (req, res) => {
   let mailOptions = {
     from: name,
     to: 'faouzi.aitelhara@gmail.com, joebarne15@gmail.com',
-    subject: 'My site contact from: ' + name,
+    subject: '[ENQUIRY: New-Style] ' + name,
     text: message,
     html: `Message from: ${name} ${lastname}
     <br></br> Email: ${email}
